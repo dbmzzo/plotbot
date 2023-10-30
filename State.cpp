@@ -8,6 +8,7 @@ MultiStepper steppers;
 Servo myServo;
 
 float speed = 0.0; 
+float battLevel = 100.0; 
 float direction = 0.0;
 float rotation = 0.0;
 char command[MAX_COMMAND_SIZE] = {0};

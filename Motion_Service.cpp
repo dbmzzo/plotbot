@@ -82,7 +82,7 @@ void joystickLoop()
 
 void commandLoop()
 {
-  if (w1.distanceToGo() != 0 || w2.distanceToGo() != 0 || w3.distanceToGo() != 0)
+  if (hasDistanceToGo())
   {
     Serial.print("Distance: ");
     Serial.print(w1.distanceToGo());

@@ -14,6 +14,7 @@ extern AccelStepper w3;
 extern MultiStepper steppers;
 
 extern float speed;
+extern float battLevel;
 extern float direction;
 extern float rotation;
 extern char command[MAX_COMMAND_SIZE];

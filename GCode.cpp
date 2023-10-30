@@ -39,7 +39,6 @@ void executeLinearMove(char* command) {
     if (!isnan(targetX) && !isnan(targetY)) {
         moveToPosition(targetX, targetY, feed);
     }
-    Serial.println(command);
 }
 
 void handleJCommand(char* command) {
@@ -55,6 +54,7 @@ void handleJCommand(char* command) {
 void handleGCommand(char* command) {
     setCommand();
     setBusy();
+    Serial.println(command);
     int commandNum = atoi(&command[1]);
     switch (commandNum) {
         case 0: // G0 rapid movement

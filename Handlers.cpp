@@ -50,6 +50,10 @@ void characteristicWrittenHandler(BLEDevice central, BLECharacteristic character
       int intValue;
       characteristic.readValue( &intValue, 4);
       commandState = intValue;
+    } else if (strcmp(characteristic.uuid(), BATT_UUID) == 0) {
+      float floatValue;
+      characteristic.readValue( &floatValue, 4);
+      battLevel = floatValue;
     } else if (strcmp(characteristic.uuid(), COMMAND_UUID) == 0) {
       BLEStringCharacteristic& stringChar = static_cast<BLEStringCharacteristic&>(characteristic);
       stringChar.value().toCharArray(command, MAX_COMMAND_SIZE);

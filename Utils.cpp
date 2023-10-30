@@ -52,7 +52,7 @@ bool isCommand() {
 }
 
 bool hasDistanceToGo() {
-  return w1.distanceToGo() >= 0.0 || w2.distanceToGo() >= 0.0 || w3.distanceToGo() >= 0.0; 
+  return w1.distanceToGo() != 0 && w2.distanceToGo() != 0 && w3.distanceToGo() != 0; 
 }
 
 bool hasJoystickValues() {

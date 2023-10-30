@@ -4,27 +4,31 @@
 #include "Constants.h"
 
 BLEFloatCharacteristic directionChar(DIR_UUID, BLEWriteWithoutResponse);
-BLEDescriptor directionDesc("2901", "Direction");
+BLEDescriptor directionDesc(DESC_UUID, "Direction");
 BLEDescriptor directionTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_VELOCITY]);
 
 BLEFloatCharacteristic rotationChar(ROTATION_UUID, BLEWriteWithoutResponse);
-BLEDescriptor rotationDesc("2901", "Rotation");
+BLEDescriptor rotationDesc(DESC_UUID, "Rotation");
 BLEDescriptor rotationTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_ROTATION]);
 
 BLEFloatCharacteristic speedChar(SPEED_UUID, BLEWriteWithoutResponse);
-BLEDescriptor speedDesc("2901", "Speed");
+BLEDescriptor speedDesc(DESC_UUID, "Speed");
 BLEDescriptor speedTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_VELOCITY]);
 
+BLEFloatCharacteristic battChar(BATT_UUID, BLERead | BLENotify);
+BLEDescriptor battDesc(DESC_UUID, "Battery");
+BLEDescriptor battTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_BATT]);
+
 BLEStringCharacteristic commandChar(COMMAND_UUID, BLENotify | BLERead | BLEWrite, 512);
-BLEDescriptor commandDesc("2901", "Command");
+BLEDescriptor commandDesc(DESC_UUID, "Command");
 BLEDescriptor commandTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_COMMAND]);
 
 BLEIntCharacteristic penChar(PEN_UUID, BLERead | BLEWriteWithoutResponse | BLENotify);
-BLEDescriptor penDesc("2901", "Pen");
+BLEDescriptor penDesc(DESC_UUID, "Pen");
 BLEDescriptor penTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_PEN]);
 
 BLEIntCharacteristic stateChar(STATE_UUID, BLERead | BLENotify);
-BLEDescriptor stateDesc("2901", "State");
+BLEDescriptor stateDesc(DESC_UUID, "State");
 BLEDescriptor stateTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_COMMAND]);
 
 void initBLEService() {
@@ -76,6 +80,12 @@ void initBLEService() {
   stateChar.setEventHandler(BLEWritten, characteristicWrittenHandler);
   controlService.addCharacteristic(stateChar);
   stateChar.writeValue(1);
+
+  battChar.addDescriptor(battDesc);
+  battChar.addDescriptor(battTypeDescriptor);
+  battChar.setEventHandler(BLEWritten, characteristicWrittenHandler);
+  controlService.addCharacteristic(battChar);
+  battChar.writeValue(100.0);
 
   BLE.setAdvertisedService(controlService);
   BLE.addService(controlService);
