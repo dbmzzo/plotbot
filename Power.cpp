@@ -1,8 +1,10 @@
 #include "Power.h"
+#include "BLE_Service.h"
+#include "State.h"
 #include <Arduino.h>
 
 unsigned long previousMillis = 0;
-const long interval = 30000;
+const long interval = 10000;
 
 const int BATT_DATA_PIN = 8;
 const int BATT_CLOCK_PIN = 9;
@@ -55,8 +57,9 @@ float readPower()
     return power;
 }
 
-float calcPercent(float voltage, float power, float maxVolts) {
-    return ((voltage + (power / 10)) / maxVolts) * 100; ;
+// TODO: calc percent -- currently returns voltage
+float calcPercent(float voltage) {
+    return voltage;
 }
 
 void checkBattLoop()
@@ -66,7 +69,8 @@ void checkBattLoop()
     if (currentMillis - previousMillis >= interval || previousMillis == 0)
     {
         previousMillis = currentMillis;
-        float currentLevel = calcPercent(readVoltage(), readPower(), 10.0);
-        Serial.println(currentLevel);
+        float currentLevel = calcPercent(readVoltage());
+        battLevel = currentLevel;
+        battChar.writeValue(currentLevel);
     }
 }

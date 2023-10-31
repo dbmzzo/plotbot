@@ -9,6 +9,5 @@ void initPowerMonitor();
 void checkBattLoop();
 float readVoltage();
 float readPower();
-float calcPercent(float voltage, float power, float maxVolts);
 
 #endif

@@ -22,6 +22,6 @@ void loop()
 {
   BLE.poll();
   motionLoop();
-  //checkSleepLoop();
-  //checkBattLoop();
+  checkSleepLoop();
+  checkBattLoop();
 }

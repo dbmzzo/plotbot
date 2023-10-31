@@ -14,6 +14,8 @@ extern AccelStepper w3;
 extern MultiStepper steppers;
 
 extern float speed;
+extern float scale;
+extern int isSleeping;
 extern float battLevel;
 extern float direction;
 extern float rotation;

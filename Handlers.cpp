@@ -20,10 +20,12 @@ void blePeripheralDisconnectHandler(BLEDevice central) {
 }
 
 void sendCommand() {
+  wakeTimer = millis();
   parseGcode(command);
 }
 
 void sendJoystick() {
+  wakeTimer = millis();
   String command = "JS" + String(speed) + "A" + String(direction) + "R" + String(rotation);
   char sendCommand[command.length() + 1];
   command.toCharArray(sendCommand, command.length() + 1);

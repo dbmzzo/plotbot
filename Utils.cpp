@@ -27,12 +27,15 @@ void setReady() {
   if (commandState == 0) {
     commandState = 1;
     stateChar.writeValue(1);
+    delay(50);
   }
 }
 
 void setBusy() {
+  if (commandState == 1) {
     commandState = 0;
     stateChar.writeValue(0);
+  }
 }
 
 bool isReady() {
@@ -52,7 +55,7 @@ bool isCommand() {
 }
 
 bool hasDistanceToGo() {
-  return w1.distanceToGo() != 0 && w2.distanceToGo() != 0 && w3.distanceToGo() != 0; 
+  return w1.distanceToGo() != 0 || w2.distanceToGo() != 0 || w3.distanceToGo() != 0; 
 }
 
 bool hasJoystickValues() {
@@ -63,10 +66,12 @@ void raisePen() {
     myServo.write(90);
     penState = 1;
     penChar.writeValue(1);
+    delay(1000);
 }
 
 void lowerPen() {
     myServo.write(0);
     penState = 0;
     penChar.writeValue(0);
+    delay(1000);
 }

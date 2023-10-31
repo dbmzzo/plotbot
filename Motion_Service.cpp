@@ -8,14 +8,18 @@
 
 void sleepAll()
 {
+  isSleeping = 1;
   wakeTimer = 0.0;
   digitalWrite(18, LOW);
+  delay(200);
 }
 
 void wakeAll()
 {
+  isSleeping = 0;
   wakeTimer = 0.0;
   digitalWrite(18, HIGH);
+  delay(200);
 }
 
 void checkSleepLoop()
@@ -26,14 +30,16 @@ void checkSleepLoop()
     {
       wakeTimer = millis();
     }
-    if (millis() - wakeTimer > 15000.0)
+    if (millis() - wakeTimer > 15000.0 && isSleeping == 0)
     {
+      Serial.println("sleeping");
       sleepAll();
     }
   }
-  else
+  else if (isSleeping == 1)
   {
     wakeAll();
+      Serial.println("waking");
   }
 }
 
@@ -82,16 +88,10 @@ void joystickLoop()
 
 void commandLoop()
 {
-  if (hasDistanceToGo())
+  if (w1.distanceToGo() || w2.distanceToGo() || w3.distanceToGo())
   {
-    Serial.print("Distance: ");
-    Serial.print(w1.distanceToGo());
-    Serial.print(" : ");
-    Serial.print(w2.distanceToGo());
-    Serial.print(" : ");
-    Serial.println(w3.distanceToGo());
     steppers.runSpeedToPosition();
-  } else {
+  } else if (commandState == 0) {
     setReady();
   }
 }

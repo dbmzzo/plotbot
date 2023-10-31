@@ -7,6 +7,7 @@
 
 extern BLEIntCharacteristic stateChar;
 extern BLEIntCharacteristic penChar;
+extern BLEFloatCharacteristic battChar;
 
 void characteristicWrittenHandler(BLEDevice central, BLECharacteristic characteristic);
 void initBLEService();

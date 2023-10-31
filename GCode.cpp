@@ -9,8 +9,8 @@
 #include <ESP32Servo.h>
 
 void moveToPosition(float x, float y, float speed) {
-    float stepsX = -x * STEPS_PER_MM;
-    float stepsY = y * STEPS_PER_MM;
+    float stepsX = -x * STEPS_PER_MM * scale;
+    float stepsY = y * STEPS_PER_MM * scale;
     float s1Dist = stepsX;
     float s2Dist = (-0.5 * stepsX - 0.86602540378 * stepsY);
     float s3Dist = (-0.5 * stepsX + 0.86602540378  * stepsY);
@@ -37,6 +37,7 @@ void executeLinearMove(char* command) {
         lowerPen();
     }
     if (!isnan(targetX) && !isnan(targetY)) {
+        setBusy();
         moveToPosition(targetX, targetY, feed);
     }
 }
@@ -53,7 +54,6 @@ void handleJCommand(char* command) {
 
 void handleGCommand(char* command) {
     setCommand();
-    setBusy();
     Serial.println(command);
     int commandNum = atoi(&command[1]);
     switch (commandNum) {

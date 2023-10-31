@@ -17,7 +17,7 @@ BLEDescriptor speedTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME
 
 BLEFloatCharacteristic battChar(BATT_UUID, BLERead | BLENotify);
 BLEDescriptor battDesc(DESC_UUID, "Battery");
-BLEDescriptor battTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, CHAR_DATA_TYPE_NAME[CharDataType::DATA_BATT]);
+BLEDescriptor battTypeDescriptor(DATA_TYPE_DESCRIPTOR_UUID, "Battery");
 
 BLEStringCharacteristic commandChar(COMMAND_UUID, BLENotify | BLERead | BLEWrite, 512);
 BLEDescriptor commandDesc(DESC_UUID, "Command");
